@@ -1,170 +1,486 @@
 {
   "info": {
-    "_postman_id": "c734a348-f350-4bd0-bbe7-a5bafa214141",
+    "_postman_id": "a0beaeb6-c14e-4dbd-93c4-0d230a8a1d0b",
     "name": "Internship-task",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "13942997"
+    "_exporter_id": "40588221"
   },
   "item": [
     {
-      "name": "create-item",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"type\": \"book\",\n  \"isbn13\": \"033-3-15-781835-1\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+      "name": "Happy Scenarios",
+      "item": [
+        {
+          "name": "create-item",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "\r",
+                  "let part1 = Math.floor(100 + Math.random() * 900).toString();      // 3 digits\r",
+                  "let part2 = Math.floor(Math.random() * 10).toString();             // 1 digit\r",
+                  "let part3 = Math.floor(10 + Math.random() * 90).toString();        // 2 digits\r",
+                  "let part4 = Math.floor(100000 + Math.random() * 900000).toString();// 6 digits\r",
+                  "\r",
+                  "\r",
+                  "let first12 = part1 + part2 + part3 + part4;\r",
+                  "\r",
+                  "let sum = 0;\r",
+                  "\r",
+                  "for (let i = 0; i < 12; i++) {\r",
+                  "    let digit = parseInt(first12[i]);\r",
+                  "\r",
+                  "    if (i % 2 === 0) {\r",
+                  "        sum += digit * 1;\r",
+                  "    } else {\r",
+                  "        sum += digit * 3;\r",
+                  "    }\r",
+                  "}\r",
+                  "\r",
+                  "let checkDigit = (10 - (sum % 10)) % 10;\r",
+                  "\r",
+                  "let isbn13 =\r",
+                  "    part1 + \"-\" +\r",
+                  "    part2 + \"-\" +\r",
+                  "    part3 + \"-\" +\r",
+                  "    part4 + \"-\" +\r",
+                  "    checkDigit;\r",
+                  "\r",
+                  "pm.environment.set(\"isbn13\", isbn13);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "pm.environment.set(\"itemId\", response.id);\r",
+                  "pm.test(\"Check Satus 201\", function () { \r",
+                  "    pm.expect(pm.response.code).to.eql(201);}); \r",
+                  "\r",
+                  "pm.test(\"Check response message\", function () { \r",
+                  "    pm.expect(pm.response.message).to.eql(\"Created\");\r",
+                  "}); "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
-          }
-        },
-        "url": {
-          "raw": "https://apichallenges.com/simpleapi/items",
-          "protocol": "https",
-          "host": [
-            "apichallenges",
-            "com"
           ],
-          "path": [
-            "simpleapi",
-            "items"
-          ]
-        },
-        "description": "Generated from cURL: curl -i -X POST \"https://apichallenges.com/simpleapi/items\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"type\": \"book\",\n  \"isbn13\": \"013-3-15-781835-5\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}'"
-      },
-      "response": []
-    },
-    {
-      "name": "get-created-item",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "https://apichallenges.com/simpleapi/items/25",
-          "protocol": "https",
-          "host": [
-            "apichallenges",
-            "com"
-          ],
-          "path": [
-            "simpleapi",
-            "items",
-            "25"
-          ]
-        },
-        "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
-      },
-      "response": []
-    },
-    {
-      "name": "get-items",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "https://apichallenges.com/simpleapi/items/25",
-          "protocol": "https",
-          "host": [
-            "apichallenges",
-            "com"
-          ],
-          "path": [
-            "simpleapi",
-            "items",
-            "25"
-          ]
-        },
-        "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
-      },
-      "response": []
-    },
-    {
-      "name": "update-price",
-      "request": {
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"book\",\n    \"isbn13\": \"{{isbn13}}\",\n    \"price\": 2,\n    \"numberinstock\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X POST \"https://apichallenges.com/simpleapi/items\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"type\": \"book\",\n  \"isbn13\": \"013-3-15-781835-5\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}'"
           },
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"price\": 9.99\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+          "response": []
+        },
+        {
+          "name": "get-created-item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "console.log(\"Retrieved item:\", responseData);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
-          }
-        },
-        "url": {
-          "raw": "https://apichallenges.com/simpleapi/items/25",
-          "protocol": "https",
-          "host": [
-            "apichallenges",
-            "com"
           ],
-          "path": [
-            "simpleapi",
-            "items",
-            "25"
-          ]
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/{{itemId}}",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "{{itemId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+          },
+          "response": []
         },
-        "description": "Generated from cURL: curl -i -X PATCH \"https://apichallenges.com/simpleapi/items/25\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"price\": 9.99\n}'"
-      },
-      "response": []
+        {
+          "name": "get-items",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"ID is a number\", function () {\r",
+                  "    pm.expect(responseData.id).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Type is a string\", function () {\r",
+                  "    pm.expect(responseData.type).to.be.a(\"string\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Items is an array\", function () {\r",
+                  "    pm.expect(responseData.items).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/{{itemId}}",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "{{itemId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+          },
+          "response": []
+        },
+        {
+          "name": "update-price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "console.log(\"Update response:\", responseData);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 9.99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/{{itemId}}",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "{{itemId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X PATCH \"https://apichallenges.com/simpleapi/items/25\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"price\": 9.99\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "delete-item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "console.log(\"Delete response:\", pm.response.text());"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/{{itemId}}",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "{{itemId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X DELETE \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+          },
+          "response": []
+        }
+      ]
     },
     {
-      "name": "delete-item",
-      "request": {
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "https://apichallenges.com/simpleapi/items/<id>",
-          "protocol": "https",
-          "host": [
-            "apichallenges",
-            "com"
+      "name": "Negative",
+      "item": [
+        {
+          "name": "create-item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Duplicate ISBN is rejected\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\r",
+                  "        \"Failed Validation: Field isbn13 Value is not unique\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
           ],
-          "path": [
-            "simpleapi",
-            "items",
-            "<id>"
-          ]
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"book\",\n  \"isbn13\": \"{{isbn13}}\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X POST \"https://apichallenges.com/simpleapi/items\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"type\": \"book\",\n  \"isbn13\": \"013-3-15-781835-5\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}'"
+          },
+          "response": []
         },
-        "description": "Generated from cURL: curl -i -X DELETE \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
-      },
-      "response": []
+        {
+          "name": "get-created-item",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Invalid ID message is correct\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\r",
+                  "        \"Could not find an instance with items/77\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/77",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "77"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+          },
+          "response": []
+        },
+        {
+          "name": "update-price",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Invalid price type is rejected\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include(\r",
+                  "        \"price should be FLOAT but was STRING\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 9.99\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://apichallenges.com/simpleapi/items/{{itemId}}",
+              "protocol": "https",
+              "host": [
+                "apichallenges",
+                "com"
+              ],
+              "path": [
+                "simpleapi",
+                "items",
+                "{{itemId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -i -X PATCH \"https://apichallenges.com/simpleapi/items/25\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"price\": 9.99\n}'"
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
