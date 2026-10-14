@@ -1,0 +1,170 @@
+{
+  "info": {
+    "_postman_id": "c734a348-f350-4bd0-bbe7-a5bafa214141",
+    "name": "Internship-task",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13942997"
+  },
+  "item": [
+    {
+      "name": "create-item",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"book\",\n  \"isbn13\": \"033-3-15-781835-1\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://apichallenges.com/simpleapi/items",
+          "protocol": "https",
+          "host": [
+            "apichallenges",
+            "com"
+          ],
+          "path": [
+            "simpleapi",
+            "items"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -X POST \"https://apichallenges.com/simpleapi/items\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"type\": \"book\",\n  \"isbn13\": \"013-3-15-781835-5\",\n  \"price\": 2,\n  \"numberinstock\": 3\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "get-created-item",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://apichallenges.com/simpleapi/items/25",
+          "protocol": "https",
+          "host": [
+            "apichallenges",
+            "com"
+          ],
+          "path": [
+            "simpleapi",
+            "items",
+            "25"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+      },
+      "response": []
+    },
+    {
+      "name": "get-items",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://apichallenges.com/simpleapi/items/25",
+          "protocol": "https",
+          "host": [
+            "apichallenges",
+            "com"
+          ],
+          "path": [
+            "simpleapi",
+            "items",
+            "25"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -X GET \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+      },
+      "response": []
+    },
+    {
+      "name": "update-price",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 9.99\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://apichallenges.com/simpleapi/items/25",
+          "protocol": "https",
+          "host": [
+            "apichallenges",
+            "com"
+          ],
+          "path": [
+            "simpleapi",
+            "items",
+            "25"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -X PATCH \"https://apichallenges.com/simpleapi/items/25\" -H \"Content-Type: application/json\" -H \"Accept: application/json\" --data '{\n  \"price\": 9.99\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "delete-item",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://apichallenges.com/simpleapi/items/<id>",
+          "protocol": "https",
+          "host": [
+            "apichallenges",
+            "com"
+          ],
+          "path": [
+            "simpleapi",
+            "items",
+            "<id>"
+          ]
+        },
+        "description": "Generated from cURL: curl -i -X DELETE \"https://apichallenges.com/simpleapi/items/25\" -H \"Accept: application/json\""
+      },
+      "response": []
+    }
+  ]
+}
